@@ -4,17 +4,23 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,8 +62,10 @@ fun LoginForm() {
                 onValueChange = {
                     email = it
                 },
-                label = { Text(text = "E-mail") }
+                label = { Text(text = "E-mail") },
+                leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "") }
             )
+            Spacer(modifier = Modifier.height(15.dp))
             TextField(
                 value = password,
                 keyboardOptions = KeyboardOptions(
@@ -67,12 +75,11 @@ fun LoginForm() {
                 onValueChange = {
                     password = it
                 },
-                label = { Text(text = "Password") }
+                label = { Text(text = "Password") },
+                leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "") }
             )
-            Box(
-                modifier = Modifier
-                    .padding(10.dp)
-            ) {
+            Spacer(modifier = Modifier.height(15.dp))
+            Box {
                 Button(
                     modifier = Modifier.defaultMinSize(100.dp),
                     onClick = {
@@ -87,15 +94,20 @@ fun LoginForm() {
 }
 
 @Composable
-@Preview
 fun LoginScreen() {
+    Scaffold(topBar = {
+        TopAppBar(title = {
+            Text(text = "Napp!")
+        })
+    }) {
+        LoginForm()
+    }
+}
+
+@Composable
+@Preview
+fun Preview() {
     NappTheme(darkTheme = true) {
-        Scaffold(topBar = {
-            TopAppBar(title = {
-                Text(text = "Napp!")
-            })
-        }) {
-            LoginForm()
-        }
+        LoginScreen()
     }
 }
